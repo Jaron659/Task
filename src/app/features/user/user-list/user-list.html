@@ -1,0 +1,105 @@
+<div class="card shadow">
+
+    <div class="card-header bg-dark text-white d-flex justify-content-between">
+
+        <h4>User Details</h4>
+
+        <a
+            routerLink="/dashboard/user/add"
+            class="btn btn-success">
+
+            Add User
+
+        </a>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-primary">
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>First Name</th>
+
+                    <th>Last Name</th>
+
+                    <th>Email</th>
+
+                    <th>Phone</th>
+
+                    <th>City</th>
+
+                    <th width="170">Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @for(user of (users$ | async); track user.id){
+
+                <tr>
+
+                    <td>{{user.id}}</td>
+
+                    <td>{{user.firstName}}</td>
+
+                    <td>{{user.lastName}}</td>
+
+                    <td>{{user.email}}</td>
+
+                    <td>{{user.phone}}</td>
+
+                    <td>{{user.city}}</td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-primary btn-sm me-2"
+                            [routerLink]="['/dashboard/user/edit', user.id]">
+
+                            Edit
+
+                        </button>
+
+                        <button
+                                class="btn btn-danger btn-sm"
+                                (click)="deleteUser(user.id)">
+
+                                Delete
+
+                        </button>   
+
+                    </td>
+
+                </tr>
+
+                }
+
+                @empty {
+
+                <tr>
+
+                    <td colspan="7" class="text-center">
+
+                        No Users Available
+
+                    </td>
+
+                </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

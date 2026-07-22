@@ -1,0 +1,19 @@
+<div class="notification-container">
+  @for (notification of notificationService.notifications(); track notification.id) {
+    <div
+      class="notification-toast alert alert-dismissible fade show"
+      [class.alert-danger]="notification.type === 'error'"
+      [class.alert-success]="notification.type === 'success'"
+      [class.alert-warning]="notification.type === 'warning'"
+      [class.alert-info]="notification.type === 'info'"
+      role="alert">
+      {{ notification.message }}
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="notificationService.dismiss(notification.id)">
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,164 @@
+<div class="card shadow">
+
+    <div class="card-header bg-dark text-white">
+
+       <h4>
+
+    @if(isEditMode){
+
+        Edit User
+
+    } @else {
+
+        Add User
+
+    }
+
+</h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <form [formGroup]="userForm"
+              (ngSubmit)="onSubmit()">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>First Name</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="firstName">
+
+                    @if(userForm.get('firstName')?.touched &&
+                        userForm.get('firstName')?.invalid){
+
+                        <small class="text-danger">
+
+                            First Name is required
+
+                        </small>
+
+                    }
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Last Name</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="lastName">
+
+                    @if(userForm.get('lastName')?.touched &&
+                        userForm.get('lastName')?.invalid){
+
+                        <small class="text-danger">
+
+                            Last Name is required
+
+                        </small>
+
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        formControlName="email">
+
+                    @if(userForm.get('email')?.touched &&
+                        userForm.get('email')?.invalid){
+
+                        <small class="text-danger">
+
+                            Enter valid email
+
+                        </small>
+
+                    }
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="phone">
+
+                    @if(userForm.get('phone')?.touched &&
+                        userForm.get('phone')?.invalid){
+
+                        <small class="text-danger">
+
+                            Enter 10 digit phone number
+
+                        </small>
+
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>City</label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="city">
+
+                @if(userForm.get('city')?.touched &&
+                    userForm.get('city')?.invalid){
+
+                    <small class="text-danger">
+
+                        City is required
+
+                    </small>
+
+                }
+
+            </div>
+
+            <button
+                class="btn btn-success"
+                type="submit">
+
+                @if(isEditMode){
+
+                        Update User
+
+                } @else {
+
+                        Save User
+
+                }
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

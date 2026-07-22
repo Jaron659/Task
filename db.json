@@ -1,0 +1,45 @@
+{
+  "users": [
+    {
+      "id": 1784718763051,
+      "firstName": "jaron",
+      "lastName": "m",
+      "email": "jaron@gmail.com",
+      "phone": "9345384003",
+      "city": "Sivakasi"
+    },
+    {
+      "id": 1784720998432,
+      "firstName": "Arun",
+      "lastName": "M",
+      "email": "arun@gmail.com",
+      "phone": "9345384003",
+      "city": "Sivakasi"
+    },
+    {
+      "id": 1784721022755,
+      "firstName": "Yogesh",
+      "lastName": "M",
+      "email": "yogesh@gmail.com",
+      "phone": "9345384003",
+      "city": "Sivakasi"
+    },
+    {
+      "id": 1784721070273,
+      "firstName": "Ishu",
+      "lastName": "M",
+      "email": "ishu@gmail.com",
+      "phone": "9003893815",
+      "city": "Madurai"
+    },
+    {
+      "id": 1784721106844,
+      "firstName": "Kumar",
+      "lastName": "G",
+      "email": "kumar@gmail.com",
+      "phone": "9500757912",
+      "city": "Chennai"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

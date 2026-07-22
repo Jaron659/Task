@@ -1,0 +1,161 @@
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-5">
+
+            <div class="card shadow-lg">
+
+                <div class="card-header bg-dark text-white text-center">
+
+                    <h3>Login</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    @if(guardMessage){
+
+                        <div class="alert alert-danger">
+
+                            <strong>Warning!</strong>
+
+                            {{ guardMessage }}
+
+                        </div>
+                    }
+                    <!-- Success Message -->
+
+                            @if(successMessage){
+
+                            <div class="alert alert-success alert-dismissible fade show">
+
+                                <strong>Success!</strong>
+
+                                {{ successMessage }}
+
+                            </div>
+
+                            }
+
+                            <!-- Error Message -->
+
+                            @if(errorMessage){
+
+                            <div class="alert alert-danger alert-dismissible fade show">
+
+                                <strong>Error!</strong>
+
+                                {{ errorMessage }}
+
+                            </div>
+
+                            }
+
+                            
+
+                    <form [formGroup]="loginForm">
+
+                        <!-- Username -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                formControlName="username"
+                                placeholder="Enter Username">
+
+                            @if(loginForm.get('username')?.touched &&
+                                loginForm.get('username')?.errors){
+
+                                <div class="text-danger mt-1">
+
+                                    @if(loginForm.get('username')?.errors?.['required']){
+
+                                        <small>
+                                            Username is required
+                                        </small>
+
+                                    }
+
+                                    @if(loginForm.get('username')?.errors?.['minlength']){
+
+                                        <small>
+                                            Username must be at least 4 characters
+                                        </small>
+
+                                    }
+
+                                </div>
+
+                            }
+
+                        </div>
+
+                        <!-- Password -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                formControlName="password"
+                                placeholder="Enter Password">
+
+                            @if(loginForm.get('password')?.touched &&
+                                loginForm.get('password')?.errors){
+
+                                <div class="text-danger mt-1">
+
+                                    @if(loginForm.get('password')?.errors?.['required']){
+
+                                        <small>
+                                            Password is required
+                                        </small>
+
+                                    }
+
+                                    @if(loginForm.get('password')?.errors?.['minlength']){
+
+                                        <small>
+                                            Password must be at least 4 characters
+                                        </small>
+
+                                    }
+
+                                </div>
+
+                            }
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-success w-100"
+                            (click)="login()"
+                            [disabled]="loginForm.invalid">
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
