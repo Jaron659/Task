@@ -32,14 +32,23 @@
                     <input
                         type="text"
                         class="form-control"
-                        formControlName="firstName">
+                        formControlName="firstName"
+                        appInputTrim>
 
                     @if(userForm.get('firstName')?.touched &&
                         userForm.get('firstName')?.invalid){
 
                         <small class="text-danger">
 
-                            First Name is required
+                            @if(userForm.get('firstName')?.errors?.['required']){
+
+                                First Name is required
+
+                            } @else if(userForm.get('firstName')?.errors?.['whitespace']){
+
+                                First Name cannot be blank
+
+                            }
 
                         </small>
 
@@ -54,14 +63,23 @@
                     <input
                         type="text"
                         class="form-control"
-                        formControlName="lastName">
+                        formControlName="lastName"
+                        appInputTrim>
 
                     @if(userForm.get('lastName')?.touched &&
                         userForm.get('lastName')?.invalid){
 
                         <small class="text-danger">
 
-                            Last Name is required
+                            @if(userForm.get('lastName')?.errors?.['required']){
+
+                                Last Name is required
+
+                            } @else if(userForm.get('lastName')?.errors?.['whitespace']){
+
+                                Last Name cannot be blank
+
+                            }
 
                         </small>
 
@@ -80,14 +98,27 @@
                     <input
                         type="email"
                         class="form-control"
-                        formControlName="email">
+                        formControlName="email"
+                        appInputTrim>
 
                     @if(userForm.get('email')?.touched &&
                         userForm.get('email')?.invalid){
 
                         <small class="text-danger">
 
-                            Enter valid email
+                            @if(userForm.get('email')?.errors?.['required']){
+
+                                Email is required
+
+                            } @else if(userForm.get('email')?.errors?.['email']){
+
+                                Enter valid email
+
+                            } @else if(userForm.get('email')?.errors?.['emailTaken']){
+
+                                This email is already registered
+
+                            }
 
                         </small>
 
@@ -97,19 +128,28 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>Phone</label>
+                    <label>City</label>
 
                     <input
                         type="text"
                         class="form-control"
-                        formControlName="phone">
+                        formControlName="city"
+                        appInputTrim>
 
-                    @if(userForm.get('phone')?.touched &&
-                        userForm.get('phone')?.invalid){
+                    @if(userForm.get('city')?.touched &&
+                        userForm.get('city')?.invalid){
 
                         <small class="text-danger">
 
-                            Enter 10 digit phone number
+                            @if(userForm.get('city')?.errors?.['required']){
+
+                                City is required
+
+                            } @else if(userForm.get('city')?.errors?.['whitespace']){
+
+                                City cannot be blank
+
+                            }
 
                         </small>
 
@@ -119,25 +159,52 @@
 
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3" formArrayName="phoneNumbers">
 
-                <label>City</label>
+                <label>Phone Numbers</label>
 
-                <input
-                    type="text"
-                    class="form-control"
-                    formControlName="city">
+                @for(phoneCtrl of phoneNumbers.controls; track $index; let i = $index) {
 
-                @if(userForm.get('city')?.touched &&
-                    userForm.get('city')?.invalid){
+                    <div class="input-group mb-2">
 
-                    <small class="text-danger">
+                        <input
+                            type="text"
+                            class="form-control"
+                            [formControlName]="i"
+                            placeholder="10-digit phone number">
 
-                        City is required
+                        <button
+                            type="button"
+                            class="btn btn-outline-danger"
+                            (click)="removePhoneNumber(i)"
+                            [disabled]="phoneNumbers.length <= 1">
 
-                    </small>
+                            Remove
+
+                        </button>
+
+                    </div>
+
+                    @if(phoneCtrl.touched && phoneCtrl.invalid){
+
+                        <small class="text-danger d-block mb-1">
+
+                            Enter valid 10-digit phone number
+
+                        </small>
+
+                    }
 
                 }
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    (click)="addPhoneNumber()">
+
+                    + Add Phone Number
+
+                </button>
 
             </div>
 

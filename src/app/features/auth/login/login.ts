@@ -5,6 +5,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, debounceTime, distinctUntilChanged, of, take } from 'rxjs';
 import { ERROR_MESSAGES } from '../../../core/constants/error-messages';
+import { Notification } from '../../../core/services/notification';
+
 
 @Component({
   selector: 'app-login',
@@ -16,11 +18,10 @@ import { ERROR_MESSAGES } from '../../../core/constants/error-messages';
 export class Login implements OnInit {
 
   guardMessage = '';
-  successMessage = '';
-  errorMessage = '';
 
   private fb = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
+  private notificationService = inject(Notification);
 
   loginForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(4)]],
@@ -34,6 +35,11 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.getToken() !== null) {
+      this.router.navigate(['/dashboard/users']);
+      return;
+    }
+
     this.route.queryParams.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((params: Record<string, string>) => {
@@ -47,7 +53,6 @@ export class Login implements OnInit {
       ),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(() => {
-      this.errorMessage = '';
       if (this.guardMessage) {
         this.guardMessage = '';
         this.router.navigate([], {
@@ -60,9 +65,6 @@ export class Login implements OnInit {
   }
 
   login(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
-
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -73,15 +75,15 @@ export class Login implements OnInit {
     this.authService.login(username!, password!).pipe(
       take(1),
       catchError(() => {
-        this.errorMessage = ERROR_MESSAGES.INVALID_CREDENTIALS;
+        this.notificationService.showError(ERROR_MESSAGES.INVALID_CREDENTIALS);
         return of(false);
       })
     ).subscribe((success) => {
       if (success) {
-        this.successMessage = ERROR_MESSAGES.LOGIN_SUCCESSFULL;
+        this.notificationService.showSuccess(ERROR_MESSAGES.LOGIN_SUCCESSFUL);
         setTimeout(() => {
           this.router.navigate(['/dashboard/users']);
-        }, 1000);
+        },1000);
       }
     });
   }

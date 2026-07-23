@@ -24,36 +24,6 @@
 
                         </div>
                     }
-                    <!-- Success Message -->
-
-                            @if(successMessage){
-
-                            <div class="alert alert-success alert-dismissible fade show">
-
-                                <strong>Success!</strong>
-
-                                {{ successMessage }}
-
-                            </div>
-
-                            }
-
-                            <!-- Error Message -->
-
-                            @if(errorMessage){
-
-                            <div class="alert alert-danger alert-dismissible fade show">
-
-                                <strong>Error!</strong>
-
-                                {{ errorMessage }}
-
-                            </div>
-
-                            }
-
-                            
-
                     <form [formGroup]="loginForm">
 
                         <!-- Username -->
@@ -68,7 +38,9 @@
                                 type="text"
                                 class="form-control"
                                 formControlName="username"
-                                placeholder="Enter Username">
+                                placeholder="Enter Username"
+                                appAutoFocus
+                                appInputTrim>
 
                             @if(loginForm.get('username')?.touched &&
                                 loginForm.get('username')?.errors){

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { ERROR_MESSAGES } from '../constants/error-messages';
 
 @Injectable({
@@ -7,9 +7,17 @@ import { ERROR_MESSAGES } from '../constants/error-messages';
 })
 export class Auth {
 
+  private static readonly TOKEN_KEY = 'auth_token';
+
+  private isAuthenticated = new BehaviorSubject<boolean>(this.loadInitialAuthState());
+
+  authState$ = this.isAuthenticated.asObservable();
+
   login(username: string, password: string): Observable<boolean> {
     if (username === 'admin' && password === '1234') {
-      localStorage.setItem('isLoggedIn', 'true');
+      const token = btoa(`${username}:${Date.now()}`);
+      localStorage.setItem(Auth.TOKEN_KEY, token);
+      this.isAuthenticated.next(true);
       return of(true);
     }
 
@@ -17,10 +25,15 @@ export class Auth {
   }
 
   logout(): void {
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem(Auth.TOKEN_KEY);
+    this.isAuthenticated.next(false);
   }
 
-  isLoggedIn(): boolean {
-    return localStorage.getItem('isLoggedIn') === 'true';
+  getToken(): string | null {
+    return localStorage.getItem(Auth.TOKEN_KEY);
+  }
+
+  private loadInitialAuthState(): boolean {
+    return localStorage.getItem(Auth.TOKEN_KEY) !== null;
   }
 }

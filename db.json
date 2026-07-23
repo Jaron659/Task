@@ -5,7 +5,9 @@
       "firstName": "jaron",
       "lastName": "m",
       "email": "jaron@gmail.com",
-      "phone": "9345384003",
+      "phoneNumbers": [
+        "9345384003"
+      ],
       "city": "Sivakasi"
     },
     {
@@ -13,7 +15,9 @@
       "firstName": "Arun",
       "lastName": "M",
       "email": "arun@gmail.com",
-      "phone": "9345384003",
+      "phoneNumbers": [
+        "9345384003"
+      ],
       "city": "Sivakasi"
     },
     {
@@ -21,7 +25,9 @@
       "firstName": "Yogesh",
       "lastName": "M",
       "email": "yogesh@gmail.com",
-      "phone": "9345384003",
+      "phoneNumbers": [
+        "9345384003"
+      ],
       "city": "Sivakasi"
     },
     {
@@ -29,7 +35,9 @@
       "firstName": "Ishu",
       "lastName": "M",
       "email": "ishu@gmail.com",
-      "phone": "9003893815",
+      "phoneNumbers": [
+        "9003893815"
+      ],
       "city": "Madurai"
     },
     {
@@ -37,8 +45,50 @@
       "firstName": "Kumar",
       "lastName": "G",
       "email": "kumar@gmail.com",
-      "phone": "9500757912",
+      "phoneNumbers": [
+        "9500757912"
+      ],
       "city": "Chennai"
+    },
+    {
+      "id": 1784781885941,
+      "firstName": "Arul",
+      "lastName": "M",
+      "email": "arul@gmail.com",
+      "phoneNumbers": [
+        "9878906750"
+      ],
+      "city": "Chennai"
+    },
+    {
+      "id": 1784791189873,
+      "firstName": "Karthi",
+      "lastName": "P",
+      "email": "karthi@gmail.com",
+      "phoneNumbers": [
+        "9876543210"
+      ],
+      "city": "Sivakasi"
+    },
+    {
+      "id": 1784805814539,
+      "firstName": "Hari",
+      "lastName": "P",
+      "email": "hari@gmail.com",
+      "city": "Sivakasi",
+      "phoneNumbers": [
+        "9003893815"
+      ]
+    },
+    {
+      "id": 1784806027626,
+      "firstName": "Madesh",
+      "lastName": "M",
+      "email": "madu@gmail.com",
+      "city": "Theni",
+      "phoneNumbers": [
+        "9878567810"
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

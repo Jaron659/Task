@@ -1,7 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
-import { Observable, finalize, map, retry, shareReplay } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, finalize, map, retry, startWith, switchMap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,24 +11,42 @@ export class UserService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = `${environment.apiUrl}/users`;
 
   loading = signal(false);
 
-  getUsers(): Observable<User[]> {
-    this.loading.set(true);
+  private usersSubject = new BehaviorSubject<User[]>([]);
 
-    return this.http.get<User[]>(this.apiUrl).pipe(
-      retry(1),
-      map(users => [...users].sort((a, b) => a.firstName.localeCompare(b.firstName))),
-      finalize(() => this.loading.set(false))
-    );
+  users$ = this.usersSubject.asObservable();
+
+  private refresh$ = new Subject<void>();
+
+  constructor() {
+    this.refresh$.pipe(
+      startWith(undefined),
+      switchMap(() => this.fetchUsers())
+    ).subscribe(users => this.usersSubject.next(users));
+  }
+
+  loadUsers(): void {
+    this.loading.set(true);
+    this.refresh$.next();
   }
 
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
-      retry(1),
-      shareReplay({ bufferSize: 1, refCount: true })
+      retry(1)
+    );
+  }
+
+  checkEmailExists(email: string, excludeId?: number): Observable<boolean> {
+    return this.http.get<User[]>(`${this.apiUrl}?email=${email}`).pipe(
+      map(users => {
+        if (excludeId) {
+          return users.some(u => u.email === email && u.id !== excludeId);
+        }
+        return users.length > 0;
+      })
     );
   }
 
@@ -35,7 +54,7 @@ export class UserService {
     this.loading.set(true);
 
     return this.http.post<User>(this.apiUrl, user).pipe(
-      finalize(() => this.loading.set(false))
+      finalize(() => this.loadUsers())
     );
   }
 
@@ -43,7 +62,7 @@ export class UserService {
     this.loading.set(true);
 
     return this.http.put<User>(`${this.apiUrl}/${user.id}`, user).pipe(
-      finalize(() => this.loading.set(false))
+      finalize(() => this.loadUsers())
     );
   }
 
@@ -51,6 +70,14 @@ export class UserService {
     this.loading.set(true);
 
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      finalize(() => this.loadUsers())
+    );
+  }
+
+  private fetchUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl).pipe(
+      retry(1),
+      map(users => [...users].sort((a, b) => a.firstName.localeCompare(b.firstName))),
       finalize(() => this.loading.set(false))
     );
   }

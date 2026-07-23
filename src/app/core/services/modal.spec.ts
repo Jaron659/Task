@@ -26,6 +26,6 @@ describe('Modal', () => {
     await Promise.resolve();
 
     expect(resolvedCount).toBe(1);
-    expect(service.visible()).toBeFalse();
+    expect(service.visible()).toBe(false);
   });
 });

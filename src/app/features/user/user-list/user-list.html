@@ -16,9 +16,11 @@
 
     <div class="card-body">
 
-        <table class="table table-bordered table-hover">
+        <table
+            class="table table-bordered table-hover"
+            [ngClass]="{'table-loading': isLoading()}">
 
-            <thead class="table-primary">
+            <thead class="table-dark">
 
                 <tr>
 
@@ -30,7 +32,7 @@
 
                     <th>Email</th>
 
-                    <th>Phone</th>
+                    <th>Phone Numbers</th>
 
                     <th>City</th>
 
@@ -46,17 +48,25 @@
 
                 <tr>
 
-                    <td>{{user.id}}</td>
+                    <td>{{ user.id | date:'short' }}</td>
 
-                    <td>{{user.firstName}}</td>
+                    <td>{{ user.firstName | titlecase | truncate:15 }}</td>
 
-                    <td>{{user.lastName}}</td>
+                    <td>{{ user.lastName | titlecase }}</td>
 
-                    <td>{{user.email}}</td>
+                    <td>{{ user.email | lowercase }}</td>
 
-                    <td>{{user.phone}}</td>
+                    <td>
 
-                    <td>{{user.city}}</td>
+                        @for(phone of user.phoneNumbers; track phone; let last = $last) {
+
+                            <span>{{ phone | phoneFormat }}{{ !last ? ', ' : '' }}</span>
+
+                        }
+
+                    </td>
+
+                    <td>{{ user.city | titlecase }}</td>
 
                     <td>
 
@@ -74,7 +84,7 @@
 
                                 Delete
 
-                        </button>   
+                        </button>
 
                     </td>
 

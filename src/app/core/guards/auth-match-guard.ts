@@ -10,7 +10,7 @@ export const authMatchGuard: CanMatchFn = () => {
 
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {
+  if (authService.getToken() !== null) {
 
     console.log('User Logged In');
 
