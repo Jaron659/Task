@@ -53,7 +53,7 @@ export class UserService {
   addUser(user: User): Observable<User> {
     this.loading.set(true);
 
-    return this.http.post<User>(this.apiUrl, user).pipe(
+    return this.http.post<User>(this.apiUrl, this.toUserPayload(user)).pipe(
       finalize(() => this.loadUsers())
     );
   }
@@ -61,7 +61,7 @@ export class UserService {
   updateUser(user: User): Observable<User> {
     this.loading.set(true);
 
-    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user).pipe(
+    return this.http.put<User>(`${this.apiUrl}/${user.id}`, this.toUserPayload(user)).pipe(
       finalize(() => this.loadUsers())
     );
   }
@@ -80,5 +80,17 @@ export class UserService {
       map(users => [...users].sort((a, b) => a.firstName.localeCompare(b.firstName))),
       finalize(() => this.loading.set(false))
     );
+  }
+
+  private toUserPayload(user: User): User {
+    return {
+      id: user.id,
+      createdAt: user.createdAt,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumbers: user.phoneNumbers,
+      city: user.city,
+    };
   }
 }

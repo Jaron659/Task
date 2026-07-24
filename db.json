@@ -2,6 +2,7 @@
   "users": [
     {
       "id": 1784718763051,
+      "createdAt": "2026-07-22T11:12:43.051Z",
       "firstName": "jaron",
       "lastName": "m",
       "email": "jaron@gmail.com",
@@ -12,6 +13,7 @@
     },
     {
       "id": 1784720998432,
+      "createdAt": "2026-07-22T11:49:58.432Z",
       "firstName": "Arun",
       "lastName": "M",
       "email": "arun@gmail.com",
@@ -22,6 +24,7 @@
     },
     {
       "id": 1784721022755,
+      "createdAt": "2026-07-22T11:50:22.755Z",
       "firstName": "Yogesh",
       "lastName": "M",
       "email": "yogesh@gmail.com",
@@ -32,6 +35,7 @@
     },
     {
       "id": 1784721070273,
+      "createdAt": "2026-07-22T11:51:10.273Z",
       "firstName": "Ishu",
       "lastName": "M",
       "email": "ishu@gmail.com",
@@ -42,6 +46,7 @@
     },
     {
       "id": 1784721106844,
+      "createdAt": "2026-07-22T11:51:46.844Z",
       "firstName": "Kumar",
       "lastName": "G",
       "email": "kumar@gmail.com",
@@ -52,6 +57,7 @@
     },
     {
       "id": 1784781885941,
+      "createdAt": "2026-07-23T04:44:45.941Z",
       "firstName": "Arul",
       "lastName": "M",
       "email": "arul@gmail.com",
@@ -62,6 +68,7 @@
     },
     {
       "id": 1784791189873,
+      "createdAt": "2026-07-23T07:19:49.873Z",
       "firstName": "Karthi",
       "lastName": "P",
       "email": "karthi@gmail.com",
@@ -72,6 +79,7 @@
     },
     {
       "id": 1784805814539,
+      "createdAt": "2026-07-23T11:23:34.539Z",
       "firstName": "Hari",
       "lastName": "P",
       "email": "hari@gmail.com",
@@ -82,13 +90,69 @@
     },
     {
       "id": 1784806027626,
+      "createdAt": "2026-07-23T11:27:07.626Z",
       "firstName": "Madesh",
       "lastName": "M",
-      "email": "madu@gmail.com",
+      "email": "madesh@gmail.com",
       "city": "Theni",
       "phoneNumbers": [
         "9878567810"
       ]
+    },
+    {
+      "id": 1784864068146,
+      "createdAt": "2026-07-24T03:34:28.146Z",
+      "firstName": "john",
+      "lastName": "m",
+      "email": "john@gmail.com",
+      "city": "mumbai",
+      "phoneNumbers": [
+        "9876543210"
+      ]
+    },
+    {
+      "id": 1784866251283,
+      "createdAt": "2026-07-24T04:10:51.283Z",
+      "firstName": "felix",
+      "lastName": "f",
+      "email": "felix@gmail.com",
+      "phoneNumbers": [
+        "9190089765"
+      ],
+      "city": "Madurai"
+    },
+    {
+      "id": 1784867369960,
+      "createdAt": "2026-07-24T04:29:29.960Z",
+      "firstName": "Harish",
+      "lastName": "S",
+      "email": "harish@gmail.com",
+      "phoneNumbers": [
+        "919870654321"
+      ],
+      "city": "Madurai"
+    },
+    {
+      "id": 1784882337929,
+      "createdAt": "2026-07-24T08:38:57.929Z",
+      "firstName": "Dani",
+      "lastName": "C",
+      "email": "dani@gmail.com",
+      "phoneNumbers": [
+        "9878675612"
+      ],
+      "city": "Sivakasi"
+    },
+    {
+      "id": 1784883587094,
+      "createdAt": "2026-07-24T08:59:47.094Z",
+      "firstName": "ChristopherAlexander",
+      "lastName": "C",
+      "email": "chris@gmail.com",
+      "phoneNumbers": [
+        "9089788776"
+      ],
+      "city": "Madurai"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -2,3 +2,16 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+.search-wrapper {
+  flex: 1 1 260px;
+  max-width: 360px;
+}
+
+.sort-wrapper {
+  flex: 0 0 auto;
+}
+
+.sort-wrapper .form-select {
+  min-width: 190px;
+}

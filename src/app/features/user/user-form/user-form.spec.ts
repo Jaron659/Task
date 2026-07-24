@@ -18,14 +18,16 @@ describe('UserForm', () => {
     firstName: 'Jane',
     lastName: 'Doe',
     email: 'jane.doe@example.com',
-    phone: '9876543210',
+    phoneNumbers: ['9876543210'],
     city: 'Chennai',
   };
 
+  const existingCreatedAt = '2024-01-15T10:30:00.000Z';
+
   beforeEach(async () => {
     userServiceMock = {
-      addUser: vi.fn(() => of({ id: 1, ...validFormValue })),
-      updateUser: vi.fn(() => of({ id: 1, ...validFormValue })),
+      addUser: vi.fn(() => of({ id: 1, createdAt: new Date(), ...validFormValue })),
+      updateUser: vi.fn(() => of({ id: 1, createdAt: existingCreatedAt, ...validFormValue })),
       getUserById: vi.fn(),
     };
 
@@ -80,6 +82,7 @@ describe('UserForm', () => {
   it('should push a "User updated" success toast and navigate after editing an existing user', () => {
     component.isEditMode = true;
     component.userId = 42;
+    component['createdAt'] = existingCreatedAt;
 
     const showSuccessSpy = vi.spyOn(notificationService, 'showSuccess');
     component.userForm.setValue(validFormValue);
@@ -87,7 +90,7 @@ describe('UserForm', () => {
     component.onSubmit();
 
     expect(userServiceMock.updateUser).toHaveBeenCalledWith(
-      expect.objectContaining({ id: 42, ...validFormValue }),
+      expect.objectContaining({ id: 42, createdAt: existingCreatedAt, ...validFormValue }),
     );
     expect(showSuccessSpy).toHaveBeenCalledWith(ERROR_MESSAGES.USER_UPDATED);
     expect(router.navigate).toHaveBeenCalledWith(['/dashboard/users']);

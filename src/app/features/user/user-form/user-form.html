@@ -28,12 +28,12 @@
                 <div class="col-md-6 mb-3">
 
                     <label>First Name</label>
-
                     <input
                         type="text"
                         class="form-control"
                         formControlName="firstName"
-                        appInputTrim>
+                        appInputTrim
+                        appAutoFocus>
 
                     @if(userForm.get('firstName')?.touched &&
                         userForm.get('firstName')?.invalid){
@@ -171,7 +171,7 @@
                             type="text"
                             class="form-control"
                             [formControlName]="i"
-                            placeholder="10-digit phone number">
+                            appInputTrim>
 
                         <button
                             type="button"
@@ -189,7 +189,7 @@
 
                         <small class="text-danger d-block mb-1">
 
-                            Enter valid 10-digit phone number
+                            Enter a valid 10-digit or 12-digit phone number
 
                         </small>
 

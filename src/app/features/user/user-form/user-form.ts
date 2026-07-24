@@ -11,18 +11,22 @@ import { filter, map, switchMap, take } from 'rxjs';
 import { noWhitespaceValidator } from '../../../core/validators/custom-validators';
 import { uniqueEmailValidator } from '../../../core/validators/async-validators';
 import { InputTrimDirective } from '../../../shared/directives/input-trim.directive';
-
+import { AutoFocusDirective } from '../../../shared/directives/auto-focus.directive';
+import { User } from '../../../models/user.model';
 @Component({
   selector: 'app-user-form',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTrimDirective,
+    AutoFocusDirective
   ],
   templateUrl: './user-form.html',
   styleUrl: './user-form.css'
 })
 export class UserForm implements CanComponentDeactivate, OnInit {
+
 
   modalService = inject(Modal);
   notificationService = inject(Notification);
@@ -30,6 +34,7 @@ export class UserForm implements CanComponentDeactivate, OnInit {
   userForm!: FormGroup;
   isEditMode = false;
   userId = 0;
+  private createdAt: User['createdAt'] | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +57,10 @@ export class UserForm implements CanComponentDeactivate, OnInit {
 
   addPhoneNumber(value = ''): void {
     this.phoneNumbers.push(
-      this.fb.control(value, [Validators.required, Validators.pattern(/^[0-9]{10}$/)])
+      this.fb.control(value, [
+        Validators.required,
+        Validators.pattern(/^(?:[0-9]{10}|91[0-9]{10})$/),
+      ])
     );
   }
 
@@ -71,6 +79,7 @@ export class UserForm implements CanComponentDeactivate, OnInit {
       }),
       take(1)
     ).subscribe(user => {
+      this.createdAt = user.createdAt;
       this.phoneNumbers.clear();
       if (user.phoneNumbers?.length) {
         user.phoneNumbers.forEach(p => this.addPhoneNumber(p));
@@ -105,7 +114,11 @@ export class UserForm implements CanComponentDeactivate, OnInit {
     const formValue = this.userForm.value;
 
     if (this.isEditMode) {
-      const updatedUser = { id: this.userId, ...formValue };
+      const updatedUser: User = {
+        id: this.userId,
+        createdAt: this.createdAt!,
+        ...formValue,
+      };
 
       this.userService.updateUser(updatedUser)
         .pipe(take(1))
@@ -116,7 +129,11 @@ export class UserForm implements CanComponentDeactivate, OnInit {
           this.router.navigate(['/dashboard/users']);
         });
     } else {
-      const newUser = { id: Date.now(), ...formValue };
+      const newUser: User = {
+        id: Date.now(),
+        createdAt: new Date(),
+        ...formValue,
+      };
 
       this.userService.addUser(newUser)
         .pipe(take(1))
